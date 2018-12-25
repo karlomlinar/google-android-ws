@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven {
+            mavenCentral()
+            mavenLocal()
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.franzbecker:gradle-lombok:${lombokPluginVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+    }
+}
+
+group "${group}"
+version "${version}"
+
+apply plugin: "java"
+apply plugin: "io.franzbecker.gradle-lombok"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "kotlin"
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+repositories {
+    maven { url 'http://repo.maven.apache.org/maven2/' }
+    maven { url 'http://repo.spring.io/libs-milestone' }
+    maven { url 'http://repo.spring.io/libs-snapshot' }
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+    compile "org.springframework.boot:spring-boot-starter-webflux"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile ('org.apache.kafka:kafka_2.11:1.0.1'){
+        exclude group: "org.slf4j", module: "slf4j-log4j12"
+    }
+    compile "org.springframework.cloud:spring-cloud-stream"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
