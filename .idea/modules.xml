@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/google-android-ws.iml" filepath="$PROJECT_DIR$/google-android-ws.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hr.tvz.google.iml" filepath="$PROJECT_DIR$/.idea/modules/hr.tvz.google.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hr.tvz.google.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hr.tvz.google.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hr.tvz.google.test.iml" filepath="$PROJECT_DIR$/.idea/modules/hr.tvz.google.test.iml" />
+    </modules>
+  </component>
+</project>

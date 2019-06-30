@@ -1,26 +1,30 @@
 package hr.tvz.googleandroidgame.config
 
-import hr.tvz.googleandroidgame.channel.ForwardingMessageHandler
 import lombok.extern.slf4j.Slf4j
-import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.integration.channel.PublishSubscribeChannel
-import org.springframework.messaging.MessageHandler
-import org.springframework.messaging.support.GenericMessage
-import org.springframework.web.reactive.HandlerMapping
-import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping
-import org.springframework.web.reactive.socket.WebSocketHandler
-import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter
-import reactor.core.publisher.Flux.create
-import java.util.*
-import java.util.concurrent.ConcurrentHashMap
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry
+import org.springframework.messaging.simp.config.MessageBrokerRegistry
+
+
 
 @Slf4j
 @Configuration
-open class WsConfiguration {
+@EnableWebSocketMessageBroker
+open class WsConfiguration : WebSocketMessageBrokerConfigurer {
 
-    @Bean
+    override fun configureMessageBroker(config: MessageBrokerRegistry?) {
+        config!!.enableSimpleBroker("/topic")
+        config.setApplicationDestinationPrefixes("/app")
+    }
+
+    override fun registerStompEndpoints(registry: StompEndpointRegistry?) {
+        registry!!.addEndpoint("/gs-guide-websocket").withSockJS()
+    }
+
+
+    /*@Bean
     @Qualifier("connections")
     internal open fun connections(): Map<String, MessageHandler> {
         return ConcurrentHashMap()
@@ -61,6 +65,7 @@ open class WsConfiguration {
     internal open fun channel(): PublishSubscribeChannel {
         return PublishSubscribeChannel()
     }
+*/
 }
 
 

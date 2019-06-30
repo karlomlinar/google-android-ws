@@ -5,9 +5,6 @@ import lombok.Data
 import lombok.NoArgsConstructor
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 class OutputMessage {
-
-    internal var guid: String? = null
+    var guid: String? = null
 }
